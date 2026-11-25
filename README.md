@@ -26,8 +26,6 @@ Use `.env` file to configure the required API keys.
 
 Configure the environment variables in the IDE run configuration when running the application locally.
 
-Never commit actual credentials or API keys.
-
 ## Running with Docker
 
 From the project root:
@@ -119,12 +117,3 @@ mvn clean verify
 ```
 
 Checkstyle and PMD are integrated into the Maven build.
-
-## Production Considerations
-
-- Distributed cache stampede protection
-- Provider rate limiting
-- Automated integration tests
-- Durable search event delivery
-- Metrics and observability
-- Secure credential management
