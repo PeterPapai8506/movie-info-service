@@ -1,0 +1,71 @@
+server:
+  port: ${SERVER_PORT}
+logging:
+  level:
+    root: ${LOG_LEVEL}
+
+spring:
+  application:
+    name: movie-info-service
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      database: ${REDIS_DATABASE}
+      connect-timeout: ${REDIS_CONNECT_TIMEOUT}
+      timeout: ${REDIS_TIMEOUT}
+  http:
+    max-in-memory-size: 2MB
+  devtools:
+    restart:
+      enabled: true
+      poll-interval: 1s
+      quiet-period: 400ms
+    livereload:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      redis:
+        failure-rate-threshold: 50
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+        minimum-number-of-calls: 3
+        permitted-number-of-calls-in-half-open-state: 2
+        wait-duration-in-open-state: ${CACHE_RETRY_INTERVAL}
+        automatic-transition-from-open-to-half-open-enabled: true
+
+movie:
+  omdb:
+    base-url: ${OMDB_API_URL}
+    api-key: ${OMDB_API_KEY}
+    api-key-param: ${OMDB_API_KEY_PARAM}
+  tmdb:
+    base-url: ${TMDB_API_URL}
+    api-key: ${TMDB_API_KEY}
+    api-key-param: ${TMDB_API_KEY_PARAM}
+  cache:
+    ttl: ${CACHE_TTL}
+    operation-timeout: ${CACHE_OPERATION_TIMEOUT}
+  max-results: ${MAX_RESULTS}
+  detail-concurrency: ${DETAIL_CONCURRENCY}
+  response-timeout: ${RESPONSE_TIMEOUT}
+  connect-timeout-millis: ${CONNECT_TIMEOUT_MILLIS}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
