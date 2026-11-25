@@ -22,7 +22,7 @@ A reactive movie information service integrating OMDb and TMDb.
 
 ## Configuration
 
-Create a local `.env` file based on `.env.example` and configure the required API keys.
+Use `.env` file to configure the required API keys.
 
 Configure the environment variables in the IDE run configuration when running the application locally.
 
